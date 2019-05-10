@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>如何在墙内快速部署centos 7的mysql | 浙江大学超算队</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="MySQL, CentOS">
+  
+  
+  
+  
+  <meta name="description" content="如何在墙内快速部署CentOS 7的MySQLMySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其">
+<meta name="keywords" content="MySQL, CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在墙内快速部署CentOS 7的MySQL">
+<meta property="og:url" content="http://clusters.zju.edu.cn/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/index.html">
+<meta property="og:site_name" content="浙江大学超算队">
+<meta property="og:description" content="如何在墙内快速部署CentOS 7的MySQLMySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-31T06:14:18.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在墙内快速部署CentOS 7的MySQL">
+<meta name="twitter:description" content="如何在墙内快速部署CentOS 7的MySQLMySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/teamIntro">team intro</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/contact">join us</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder>
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Install-MySQL-on-CentOS7-Inside-GFW" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+    <div id="articleInner" class="article-inner">
+        
+        
+        <header class="article-header">
+            
+  
+    <h1 class="thumb" itemprop="name">
+      如何在墙内快速部署CentOS 7的MySQL
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-meta">
+            
+	<a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" class="article-date">
+	  <time datetime="2019-03-31T02:45:19.000Z" itemprop="datePublished">2019-03-31</time>
+	</a>
+
+            
+            
+	<a class="article-author">
+		<span id="postAuthor">
+			Author: 王克
+		</span>
+	</a>
+
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+            <h1 id="如何在墙内快速部署CentOS-7的MySQL"><a href="#如何在墙内快速部署CentOS-7的MySQL" class="headerlink" title="如何在墙内快速部署CentOS 7的MySQL"></a>如何在墙内快速部署CentOS 7的MySQL</h1><p>MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。</p>
+<p>其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其他 rpm 包软件的手动安装。</p>
+<p>本文实际在讲的是，如何利用各种手段，加速和改善yum的安装过程。</p>
+<hr>
+<h2 id="传统方案……慢到怀疑人生"><a href="#传统方案……慢到怀疑人生" class="headerlink" title="传统方案……慢到怀疑人生"></a>传统方案……慢到怀疑人生</h2><p>根据<a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">官方指南</a>，我们执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载源</span></span><br><span class="line">wget <span class="string">"https://dev.mysql.com/get/mysql80-community-release-el7-2.noarch.rpm"</span></span><br><span class="line"><span class="comment"># 安装源</span></span><br><span class="line">sudo rpm -ivh mysql80-community-release-el7-2.noarch.rpm</span><br><span class="line"><span class="comment"># 检查源是否成功安装</span></span><br><span class="line">sudo yum repolist enabled | grep <span class="string">"mysql80-community*"</span></span><br></pre></td></tr></table></figure>
+<p>接下来就是正常的安装步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql-community-server mysql</span><br></pre></td></tr></table></figure>
+<p>但是由于一些原因，下载速度基本是几Byte/s，MySQL 服务器的大小(加上依赖服务)差不多有600MB，这种方法基本不可取。手头没有特别好的而且很新的软件源，就打算手动安装。</p>
+<h2 id="手动安装法"><a href="#手动安装法" class="headerlink" title="手动安装法"></a>手动安装法</h2><p>首先依然需要下载并安装官方源。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+<p>利用该命令我们可以获取一些 MySQl Server 以来安装顺序及其版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">=================================================================================================</span><br><span class="line"> Package                       Arch          Version              Repository                Size</span><br><span class="line">=================================================================================================</span><br><span class="line">Reinstalling:</span><br><span class="line"> mysql-community-client        x86_64        8.0.15-1.el7         mysql80-community         25 M</span><br><span class="line"></span><br><span class="line"> mysql-community-libs          x86_64        8.0.15-1.el7         mysql80-community          2 M</span><br><span class="line"></span><br><span class="line"> mysql-community-common        x86_64        8.0.15-1.el7         mysql80-community        570 K</span><br><span class="line"></span><br><span class="line"> mysql-community-server        x86_64        8.0.15-1.el7         mysql80-community        360 M</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">=================================================================================================</span><br></pre></td></tr></table></figure>
+<p>解压并分析rpm源包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm2cpio mysql80-community-release-el7-2.noarch.rpm | cpio -div</span><br><span class="line">vim /etc/yum.repos.d/mysql-community.repo</span><br></pre></td></tr></table></figure>
+<p>从中我们可以找到对应版本的网络路径为<code>http://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/</code>。</p>
+<p>打开该地址，找到对应的几个安装包：</p>
+<ul>
+<li>mysql-community-client-8.0.15-1.el7.x86_64.rpm</li>
+<li>mysql-community-libs-8.0.15-1.el7.x86_64.rpm</li>
+<li>mysql-community-common-8.0.15-1.el7.x86_64.rpm</li>
+<li>mysql-community-server-8.0.15-1.el7.x86_64.rpm</li>
+</ul>
+<p>使用某种下载工具(我使用的是迅雷)下载，然后使用<code>scp</code>指令上传到服务器上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp mysql-community-client-8.0.15-1.el7.x86_64.rpm xxx@xx.xx.xx.xx:/root/mysql-community-client-8.0.15-1.el7.x86_64.rpm</span><br><span class="line">scp mysql-community-libs-8.0.15-1.el7.x86_64.rpm xxx@xx.xx.xx.xx:/root/mysql-community-libs-8.0.15-1.el7.x86_64.rpm</span><br><span class="line">scp mysql-community-common-8.0.15-1.el7.x86_64.rpm xxx@xx.xx.xx.xx:/root/mysql-community-common-8.0.15-1.el7.x86_64.rpm</span><br><span class="line">scp mysql-community-server-8.0.15-1.el7.x86_64.rpm xxx@xx.xx.xx.xx:/root/mysql-community-server-8.0.15-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>按照先后顺序依次执行<code>yum</code>本地安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall mysql-community-common-8.0.15-1.el7.x86_64.rpm</span><br><span class="line">sudo yum localinstall mysql-community-libs-8.0.15-1.el7.x86_64.rpm</span><br><span class="line">sudo yum localinstall mysql-community-client-8.0.15-1.el7.x86_64.rpm</span><br><span class="line">sudo yum localinstall mysql-community-server-8.0.15-1.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">sudo yum -y install mysql</span><br></pre></td></tr></table></figure>
+<p>安装成功，启动并测试服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld.service</span><br><span class="line">systemctl status mysqld.service</span><br></pre></td></tr></table></figure>
+<p>找出默认密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;password&quot; /var/log/mysqld.log &gt;&gt; defalut_mysql_passwd.txt</span><br></pre></td></tr></table></figure>
+
+            
+        </div>
+        <footer class="article-footer">
+            
+            
+            <h3>评论区</h3>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<!--<script src="//cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script>
+    <script src='//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js'></script>-->
+<div id="vcomments"></div>
+<script>
+    var notify = 'false' == true ? true : false;
+    var verify = 'false' == true ? true : false;
+    var visitor = 'true' == true ? true : false;
+    new Valine({
+        el: '#vcomments',
+        notify: notify,
+        verify: verify,
+        app_id: 'vzkq3TwdOhGcrpi7lsHAoz97-gzGzoHsz',
+        app_key: 'St7KQEXXD6TapeMcRL7mjd2d',
+        lang: 'en',
+        placeholder: 'ヾﾉ≧∀≦)o快来评论一下吧!',
+        avatar: 'monsterid',
+        pageSize: '10',
+        visitor: visitor
+    });
+</script>
+
+
+            
+            
+            
+            <div>
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>Post author:  </strong>ZJUSCT
+        </li>
+        <li class="post-copyright-link">
+            <strong>Post link:  </strong>
+            <a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" target="_blank" title="如何在墙内快速部署CentOS 7的MySQL">http://clusters.zju.edu.cn/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/</a>
+        </li>
+        <li class="post-copyright-license">
+            <strong>Copyright Notice:  </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+        </li>
+    </ul>
+    <div>
+</div></div>
+            
+
+        </footer>
+    </div>
+    
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/31/Virtual-Memory-and-TLB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Virtual Memory and TLB
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/24/bp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">BP算法</div>
+    </a>
+  
+</nav>
+
+    
+</article>
+
+<!-- Table of Contents -->
+
+<aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在墙内快速部署CentOS-7的MySQL"><span class="nav-number">1.</span> <span class="nav-text">如何在墙内快速部署CentOS 7的MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统方案……慢到怀疑人生"><span class="nav-number">1.1.</span> <span class="nav-text">传统方案……慢到怀疑人生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装法"><span class="nav-number">1.2.</span> <span class="nav-text">手动安装法</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2014 - 2019 浙江大学超算队 All Rights Reserved.</p>
+	      
+	       
+  		   	<p id="copyRightCn">ZJUSCT hold copyright</p>
+  		   
+		</div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+    <a href="/teamIntro" class="mobile-nav-link">Team Intro</a>
+  
+    <a href="/contact" class="mobile-nav-link">Join Us</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">ZJUSCT</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+      
+        <div style="margin:6px;">
+        </div>
+
+        <div>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;About&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          
+          <div class="panel-body">
+            浙江大学超算队
+          </div>
+
+          <div class="panel-body">
+            Copyright © 2019 ZJUSCT All Rights Reserved.
+          </div>
+
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
