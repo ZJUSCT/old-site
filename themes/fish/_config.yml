@@ -5,11 +5,13 @@
 # Header Menu
 menu:
   Home: /
+  # Tags: tags
   Articles: archives
   # Categories: categories
-  # Tags: tags
   About: about
+  #
   Team Intro: teamIntro
+  #
   Join Us: contact
 
 since: 2014

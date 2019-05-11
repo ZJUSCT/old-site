@@ -5,14 +5,13 @@
 
   <div class="container">
       	<div class="row">
-	      <p> <%= __('powered_by') %> <a href="http://hexo.io/" target="_blank">Hexo</a> </p>
-	      <p id="copyRightEn">Copyright &copy; <%= theme.since ||  (date(new Date(), 'YYYY')-1)%> - <%= date(new Date(), 'YYYY') %> <%= config.title || config.author %> All Rights Reserved.</p>
-	      
+	      <p style="font-size:12px;margin:0;"> <%= __('powered_by') %> <a href="http://hexo.io/" target="_blank" style="color:#909090">Hexo</a> </p>
+	      <p id="copyRightEn" style="font-size:12px;margin:0;">Copyright &copy; <%= theme.since ||  (date(new Date(), 'YYYY')-1)%> - <%= date(new Date(), 'YYYY') %> <%= config.title || config.author %> All Rights Reserved.</p>
+
 	       <% if (theme.show_busuanzi_view_counts){ %>
     		<p class="busuanzi_uv">
 		    </p>
   		   <% } else { %>
-  		   	<p id="copyRightCn"><%= __('right_reserved', config.author || config.title) %></p>
   		   <% } %>
 		</div>
   </div>
