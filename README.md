@@ -1,8 +1,8 @@
 # ZJUSCT Blog - Source Branch
 
-<p style="color:white;font-size:30px;text-align:center;background-color:red;">Do not merge this to master!</p>
-
 <img align="right" width="159px" src="https://raw.githubusercontent.com/fish98/fish98.github.io/master/2018/05/17/stack/thumbnail.png">
+
+<p style="color:white;font-size:30px;text-align:center;background-color:red;">Do not merge this to master!</p>
 
 This is the source branch of official ZJUSCT blog repo.
 
@@ -24,9 +24,11 @@ So, the probable way to contribute to the `source` site is:
 
 + run `hexo g` to generate your markdown file into static page
 
-+ run `hexo s` to view present layout
-
 For more detailed usages please check [The Usage for Hexo](https://hexo.io/zh-cn/docs/index.html)
+
+### If you're Admin
+
+On receving pull request, check it and accept. Then pull the main branch and use `hexo g` and `hexo d`, then the page can be published.
 
 ---
 

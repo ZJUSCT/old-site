@@ -1,52 +1,28 @@
 ---
 title: 基于0-1乘性噪声的朴素图片降噪
-date: 2019/5/11 
+date: 2019/5/11
 author: 漆翔宇
-tags: 
+tags:
     - AI
 ---
 
-
-
-
-
-[TOC]
-
-
-
 # 基于0-1乘性噪声的图片降噪
-
-
-
-
-
-
 
 ## 项目内容
 
 给定3张受损图像，尝试恢复他们的原始图像。
 
 1. 原始图像包含1张黑白图像（A.png）和2张彩色图像（B.png, C.png）。
-2. 受损图像$X$是由原始图像$I \in R^{H*W*C}$添加了不同噪声遮罩$M \in R^{H*W*C}$得到的$x=I\odot m$，其中$\odot$是逐元素相乘。
+2. 受损图像$X$是由原始图像$I \in R^{H *W *C}$添加了不同噪声遮罩$M \in R^{H *W *C}$得到的$x=I\odot m$，其中$\odot$是逐元素相乘。
 3. 噪声遮罩仅包含{0,1}值。对应原图（A/B/C）的噪声遮罩的每行分别用0.8/0.4/0.6的噪声比率产生的，即噪声遮罩每个通道每行80%/40%/60%的像素值为0，其他为1。
 
 **评估误差为恢复图像与原始图像向量化后的差向量的2-范数，此误差越小越好。**
 
-
-
-
-
-
-
 ## 实现介绍
-
-
 
 ### 核心思想
 
 由于图片的像素点在空间上满足局部相似的特征，相邻的像素点通道值变化往往是平滑且有一定规则的。因此，我们可以用一个模型来拟合像素点通道值在空间上的关系。具体实现中，我们将图片切割成若干个小矩形块，然后使用一个二维线性回归模型来回归每个小矩形块中位置和像素通道值的函数关系。为了使结果更加平滑和可靠，我们采用了高斯函数作为基函数。
-
-
 
 ### 高斯函数
 
@@ -54,35 +30,33 @@ tags:
 
 这样做，主要是因为我们的局部性原理本身就是不带方向性的，所谓的局部性就是指临近的点存在某种平滑的变化关系。使用这样一个衡量距离的核函数，可以使得我们的回归结果更加平滑：
 
-![1557553232975](.\Image-Restoration-SimpleVersion\1.png)![1557553289344](.\Image-Restoration-SimpleVersion\2.png)
-
-​			Image 1 : Non-Gaussian&emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;Image 2 : Gaussian
+![Image 1 : Non-Gaussian](1.png)![Image 2 : Gaussian](2.png)
 
 上图左边是用坐标直接回归，右图是坐标经过高斯核处理后回归的结果。可以看到左边有大量的不平滑的交错的黑白点，看起来很“脏”。右边由于采用了高斯函数处理过的表征距离关系的核函数，结果更加平滑，清晰。
 
-CODE : 
+CODE:
 
-![1557552638207](.\Image-Restoration-SimpleVersion\0.png)
-
-
+![1557552638207](0.png)
 
 ### 训练
 
 提取完特征后的数据点拟合，就是一个简单的线性回归任务而已，我们采用最小二乘法回归。
+
 $$
 Loss = \frac{\Sigma_{i=0}^n(y_i-\phi(x_i)*w^T)^2}{n}=\frac{\Sigma_{i=1}^{n}Loss_i}{n}
 $$
+
 使用随机梯度下降来最优化损失函数：
+
 $$
-w\leftarrow w-\eta*\triangledown Loss_i=w+2\eta(y_i-\phi(x_i)*w^T)*\phi(x_i)
+w\leftarrow w-\eta * \triangledown Loss_i = w+2\eta (y_i-\phi (x_i) *w^T) * \phi (x_i)
 $$
+
 具体实现中，我们取步长=0.005，进行100轮随机梯度下降。
 
-CODE : 
+CODE:
 
-![1557553726847](.\Image-Restoration-SimpleVersion\3.png)
-
-​	
+![1557553726847](3.png)
 
 ### 迭代降噪
 
@@ -90,13 +64,13 @@ CODE :
 
 我们先取ss=2尝试一下：
 
-![1557554692878](.\Image-Restoration-SimpleVersion\4.png)
+![1557554692878](4.png)
 
 噪音为0.8的时候，我们可以看到，如果取一个2*2的块，期望其中没损坏的通道只有0.8个，所以势必有大量的矩阵块里面都是全损坏的，这会使得一些全损坏的块得不到修复，产生大量的黑点。
 
 直接取ss=5：
 
-![1557555082672](.\Image-Restoration-SimpleVersion\5.png)
+![1557555082672](5.png)
 
 显然，黑块的数量变少了，但是实际上图片给人的颗粒赶很明显，更像是一堆模糊的马赛克拼图拼凑而成的。
 
@@ -104,53 +78,32 @@ CODE :
 
 下面是用ss={2，3，4，5}迭代恢复四次的过程：
 
-![1557555312479](.\Image-Restoration-SimpleVersion\6.png)![1557555329659](.\Image-Restoration-SimpleVersion\7.png)
+![ss = 2](6.png)![ss = 3](7.png)
 
-​								ss = 2&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ss = 3
+![ss = 4](8.png)![ss = 5](9.png)
 
-![1557555390701](.\Image-Restoration-SimpleVersion\8.png)![1557555407522](.\Image-Restoration-SimpleVersion\9.png)
-
-​					ss = 4&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ss = 5
-
-可以看到黑点逐渐被消除，并且最后经过ss=5的回归后得到的结果在视觉效果上明显优于直接用ss=5进行回归。这种想法本质上是一种<Font color=red>贪心算法</Font>。先将损失密度小的局部块恢复好，再充分利用之前修复出来的信息将损失密度更大的块修复。
-
-
+可以看到黑点逐渐被消除，并且最后经过ss=5的回归后得到的结果在视觉效果上明显优于直接用ss=5进行回归。这种想法本质上是一种<Font color="red">贪心算法</Font>。先将损失密度小的局部块恢复好，再充分利用之前修复出来的信息将损失密度更大的块修复。
 
 ## 实验结果
 
-
-
 A （noise rate = 0.8）
 
-![1557555803523](.\Image-Restoration-SimpleVersion\10.png)![1557555803523](.\Image-Restoration-SimpleVersion\9.png)
-
-
+![](10.png)![](9.png)
 
 B（noise rate = 0.4）
 
-![1557555912498](.\Image-Restoration-SimpleVersion\11.png)![1557555931962](.\Image-Restoration-SimpleVersion\12.png)
-
-
+![](11.png)![](12.png)
 
 C（noise rate = 0.6）
 
-![1557555967566](.\Image-Restoration-SimpleVersion\13.png)![1557555980635](.\Image-Restoration-SimpleVersion\14.png)
-
-
+![](13.png)![](14.png)
 
 D（根据原图自己生成，测试迭代过程中损失的减少）
 
-![1557556110640](.\Image-Restoration-SimpleVersion\15.png)
-
-
-
-
-
-
+![](15.png)
 
 ## 潜在的优化展望
 
 1. 由于每个块的修复是独立的，可以考虑使用CPU多线程计算或者在GPU上用CUDA进行并行优化，加速整个修复过程。
 2. 使用更复杂的网络来拟合。
 3. 使用马尔科夫随机场的方法来做图像降噪。
-
