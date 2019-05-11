@@ -1,0 +1,7 @@
+<% if ( is_post() && !is_current("about", false)){ %>
+	<a class="<%= class_name %>">
+		<span id="postAuthor">
+			Author: <%= post.author %>
+		</span>
+	</a>
+<% } %>

@@ -1,0 +1,40 @@
+home: Accueil
+archives: Archives
+about: À propos
+categories: Catégories
+search: Rechercher
+tags: Mots-clés
+tagcloud: Nuage de mots-clés
+tweets: Tweets
+prev: Préc.
+next: Suiv.
+comment: Commentaires
+archive_a: Archives
+archive_b: "Archives: %s"
+page: Page %d
+recent_posts: Articles récents
+newer: Récent(s)
+older: Ancien(s)
+share: Partager
+powered_by: Propulsé par
+rss_feed: Flux RSS
+category: Catégories
+tag: Mot-clé
+connect: 'Connexion'
+post_total_count: Il y a actuellement %d articles.
+right_reserved: "Droits réservés %s"
+site_uv: 'UV'
+site_pv: 'PV'
+article_pv: 'PV:'
+read_more: Lire la suite
+contents: Contenu
+none: Aucun
+donation: 
+    button_text: 'Faire un don'
+insight: 
+    hint: 'Écrivez ici'
+    posts: 'Articles'
+    pages: 'Pages'
+    categories: 'Catégories'
+    tags: 'Mots-clés'
+    untitled: '(Sans titre)'

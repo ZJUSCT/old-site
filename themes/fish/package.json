@@ -1,0 +1,17 @@
+{
+  "name": "ZJUSCT BLOG",
+  "version": "1.0.0",
+  "description": "Theme for Hexo",
+  "author": "ZJUSCT",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "grunt-git": "~0.2.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1"
+  },
+  "dependencies": {
+    "grunt": "^1.0.3",
+    "load-grunt-tasks": "^4.0.0"
+  }
+}
