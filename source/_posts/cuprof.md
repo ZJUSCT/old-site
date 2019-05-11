@@ -2,7 +2,10 @@
 title: Quick Guide to CUDA Profiling
 date: 2018-12-07 23:48:33
 author: 小妹妹
-tags: [Tech, CUDA, Profile]
+tags: 
+    - Tech
+    - CUDA
+    - Profile
 ---
 
 # 1. Brief Introduction

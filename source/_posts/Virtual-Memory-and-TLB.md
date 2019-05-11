@@ -1,7 +1,11 @@
 ---
 title: Virtual Memory and TLB
 date: 2019-03-31 14:05:11
-tags: Tech, Operating Susyem, Virtual Memory, TLB
+tags:
+  - Tech
+  - Operating Susyem
+  - Virtual Memory
+  - TLB
 author: 王克
 ---
 

@@ -1,7 +1,9 @@
 ---
 title: 如何在墙内快速部署CentOS 7的MySQL
 date: 2019-03-31 10:45:19
-tags: MySQL, CentOS
+tags: 
+    - MySQL
+    - CentOS
 author: 王克
 ---
 

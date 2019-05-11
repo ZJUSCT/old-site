@@ -2,7 +2,9 @@
 title: BP算法
 author: 陈岩
 date: 2018-12-24 21:03:59
-tags: ML, Tech
+tags: 
+    - Machine Learning
+    - Tech
 mathjax: true
 ---
 

@@ -2,7 +2,9 @@
 title: CUDA内存管理总结(一)
 date: 2018-11-25 00:46:08
 author: 潘薇鸿
-tags: [Tech, CUDA]
+tags: 
+    - Tech
+    - CUDA
 ---
 
 # CUDA 内存管理(一)

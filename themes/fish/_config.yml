@@ -5,7 +5,7 @@
 # Header Menu
 menu:
   Home: /
-  Archives: archives
+  Articles: archives
   # Categories: categories
   # Tags: tags
   About: about
@@ -21,10 +21,18 @@ keywords: ""
 avatar:
   enable: true
   border: true
-  width: 124
-  height: 124
+  width: 249
+  height: 75
   top: 0
-  url: css/images/mylogo.jpg
+  url: css/images/ZJUSCT_Icon_Black.png
+
+headericon:
+  enable: true
+  border: true
+  width: 249
+  height: 75
+  top: 0
+  url: css/images/ZJUSCT_Header_Logo.png
 
 
 # Homepage
@@ -39,7 +47,7 @@ home_background_image:
 home_logo_image:
   enable: false
   border: false
-  url: css/images/mylogo.jpg
+  url: css/images/ZJUSCT_Icon_Black.png
 
 # AboutPage background
 about_big_image: [css/images/computer.jpg, css/images/computer2.jpg, css/images/prize.jpg, css/images/prize2.jpg]
@@ -63,12 +71,12 @@ fancybox: true
 # Sidebar
 sidebar: right
 widgets:
-- social
 - category
 - tag
 - tagcloud
 - archive
 - recent_posts
+# - social
 
 
 # Social Links

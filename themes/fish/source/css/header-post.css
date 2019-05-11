@@ -1,3 +1,11 @@
+header.main_header {
+    right: 0;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 99999;
+}
+
 .hnav {
 	position: relative;
 	left: 0;
@@ -16,13 +24,13 @@
 	z-index: 2;
 }
 .navbar-default .navbar-nav > li > a {
-    color: #555;
+    color: #aaa;
     position: relative;
     display: block;
-    padding: 15px 15px;
+    padding: 10px 12px 20px 12px;
 }
 .navbar-toggle {
-	margin-top: 28px;
+	margin-top: 20px;
 	margin-bottom: 28px;
 	margin-right: 0px;
 	background-color: transparent;
@@ -42,7 +50,7 @@
 		background: rgba(48,51,58,0.98);
 		color: #fff;
 		width: 100%;
-		top: 91px;
+		top: 75px;
 		left: 20px;
 		right: 0;
 		margin: 0 0 0 -20px;
@@ -54,7 +62,6 @@
 	}
 	.hnav {
 		float: none;
-		margin: 80px 0 40px 0;
 		padding: 0 20%;
 	}
 	.container > .navbar-collapse {

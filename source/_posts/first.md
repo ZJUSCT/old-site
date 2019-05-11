@@ -4,7 +4,10 @@ date: 2018-09-30 21:25:55
 author: TTfish
 banner: banner.jpg
 thumbnail: thumbnail.jpeg
-tags: [Tech, Spc, ZJU]
+tags: 
+    - Tech
+    - Spc
+    - ZJU
 ---
 
 

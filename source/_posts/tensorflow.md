@@ -2,7 +2,9 @@
 title: Distributed Tensorflow
 date: 2018-12-23 19:57:25
 author: 陈岩
-tags: [Tech, Tensorflow]
+tags: 
+    - Tech
+    - Tensorflow
 ---
 # Distributed Tensorflow
 
