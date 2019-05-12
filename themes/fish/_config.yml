@@ -1,0 +1,183 @@
+# ---------------------------------------------------------------
+# Site Information Settings
+# ---------------------------------------------------------------
+
+# Header Menu
+menu:
+  Home: /
+  # Tags: tags
+  Articles: archives
+  # Categories: categories
+  About: about
+  #
+  Team Intro: teamIntro
+  #
+  Join Us: contact
+
+since: 2014
+
+# Set default keywords (Use a comma to separate)
+keywords: ""
+
+# Put your favicon.ico or avatar.jpg into `hexo-site/themes/hiker/source/` directory.
+avatar:
+  enable: true
+  border: true
+  width: 249
+  height: 75
+  top: 0
+  url: css/images/ZJUSCT_Icon_Black.png
+
+headericon:
+  enable: true
+  border: true
+  width: 249
+  height: 75
+  top: 0
+  url: css/images/ZJUSCT_Header_Logo.png
+
+
+# Homepage
+# eg. home_background_image: [css/images/home-bg.jpg, http://t.cn/RMbvEza]
+# eg. mode: image | polyline | trianglify
+home_background_image:
+  enable: true
+  mode: image
+  rolling: true
+  url: [css/images/computer.jpg, css/images/computer2.jpg, css/images/computer3.jpg, css/images/computer4.jpg, css/images/computer5.jpg, css/images/prize.jpg, css/images/prize2.jpg]
+
+home_logo_image:
+  enable: false
+  border: false
+  url: css/images/ZJUSCT_Icon_Black.png
+
+# AboutPage background
+about_big_image: [css/images/computer.jpg, css/images/computer2.jpg, css/images/prize.jpg, css/images/prize2.jpg]
+
+
+# Archive pagination
+archive_pagination: true
+
+
+# Post Article's Content
+post_catalog:
+  enable: true
+# 开启主页摘要
+post_excerpt: true
+
+
+# Content
+fancybox: true
+
+
+# Sidebar
+sidebar: right
+widgets:
+- category
+- tag
+- tagcloud
+- archive
+- recent_posts
+# - social
+
+
+# Social Links
+# Key is the name of FontAwsome icon.
+# Value is the target link (E.g. GitHub: https://github.com/iTimeTraveler)
+social:
+  Github: https://github.com/ZJUSCT
+  Weibo:
+  Twitter:
+  Facebook:
+  Google-plus:
+  Instagram:
+  Pinterest:
+  Flickr:
+  email: jiongchiyu@zju.edu.cn
+
+
+# Search
+search:
+    insight: true # you need to install `hexo-generator-json-content` before using Insight Search
+    swiftype: # enter swiftype install key here
+    baidu: true # you need to disable other search engines to use Baidu search, options: true, false
+
+
+# comment ShortName, you can choose only ONE to display.
+gentie_productKey: #your-gentie-product-key
+duoshuo_shortname:
+disqus_shortname:
+livere_shortname:
+uyan_uid:
+wumii:
+
+
+# Code Highlight theme
+# Available value:
+#    default | gray | normal | night | night eighties | night blue | night bright
+# https://github.com/chriskempson/tomorrow-theme
+highlight_theme: night eighties
+
+
+# Article theme color
+# Available value:
+#    random | orange | blue | red | green | black
+theme_color: black
+
+
+# display widgets at the bottom of index pages (pagination == 2)
+index_widgets:
+# - category
+# - tagcloud
+# - archive
+
+
+# widget behavior
+archive_type: 'monthly'
+show_count: true
+
+# Google Webmaster tools verification setting
+# See: https://www.google.com/webmasters/
+google_site_verification:
+baidu_site_verification:
+qihu_site_verification:
+
+# Miscellaneous
+google_analytics:
+gauges_analytics:
+baidu_analytics:
+tencent_analytics:
+twitter:
+google_plus:
+fb_admins:
+fb_app_id:
+
+# CNZZ count
+cnzz_siteid:
+
+# busuanzi count
+# http://busuanzi.ibruce.info/
+show_busuanzi_view_counts: false
+
+
+# donation button
+donate:
+    enable: false
+
+# post copyright
+copyright:
+    enable: true
+
+mathjax:
+    enable: true
+
+valine:
+  enable: true
+  app_id: vzkq3TwdOhGcrpi7lsHAoz97-gzGzoHsz
+  app_key: St7KQEXXD6TapeMcRL7mjd2d
+  notify: false   #邮件提醒设置
+  verify: false   #验证码设置
+  placeholder: ヾﾉ≧∀≦)o快来评论一下吧!
+  avatar: monsterid  #头像设置
+  pageSize: 10
+  visitor: true

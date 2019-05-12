@@ -1,0 +1,34 @@
+<footer id="footer">
+  <% if (theme.sidebar === 'bottom'){ %>
+    <%- partial('_partial/sidebar') %>
+  <% } %>
+
+  <div class="container">
+      	<div class="row">
+	      <p style="font-size:12px;margin:0;"> <%= __('powered_by') %> <a href="http://hexo.io/" target="_blank" style="color:#909090">Hexo</a> </p>
+	      <p id="copyRightEn" style="font-size:12px;margin:0;">Copyright &copy; <%= theme.since ||  (date(new Date(), 'YYYY')-1)%> - <%= date(new Date(), 'YYYY') %> <%= config.title || config.author %> All Rights Reserved.</p>
+
+	       <% if (theme.show_busuanzi_view_counts){ %>
+    		<p class="busuanzi_uv">
+		    </p>
+  		   <% } else { %>
+  		   <% } %>
+		</div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
