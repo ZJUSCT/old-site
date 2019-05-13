@@ -1,5 +1,11 @@
 home: 首页
 archives: 归档
+Articles: 文章
+Team Intro: 团队介绍
+Join Us: 加入我们
+articles: 文章
+team intro: 团队介绍
+join us: 加入我们
 about: 关于
 categories: 分类
 search: 搜索
@@ -43,4 +49,4 @@ copyright:
     link: "本文链接: "
     license_title: "版权声明: "
     left_license_content: "本博客所有文章除特别声明外，均采用 "
-    right_license_content: "许可协议。转载请注明出处"    
+    right_license_content: "许可协议。转载请注明出处"

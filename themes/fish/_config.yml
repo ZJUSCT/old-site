@@ -67,6 +67,7 @@ post_excerpt: true
 
 
 # Content
+excerpt_link: Read More #可以更改成想要显示的文字
 fancybox: true
 
 
@@ -77,7 +78,7 @@ widgets:
 - tag
 - tagcloud
 - archive
-- recent_posts
+# - recent_posts
 # - social
 
 
@@ -158,7 +159,6 @@ cnzz_siteid:
 # busuanzi count
 # http://busuanzi.ibruce.info/
 show_busuanzi_view_counts: false
-
 
 # donation button
 donate:

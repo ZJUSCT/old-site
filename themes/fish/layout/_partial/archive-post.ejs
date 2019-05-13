@@ -3,6 +3,25 @@
     <header class="archive-article-header">
       <%- partial('post/date', {class_name: 'archive-article-date', date_format: site.date_format}) %>
       <%- partial('post/title', {class_name: 'archive-article-title'}) %>
+
+      <div class="article-info">
+	  	<div class="article-author-box">
+	      <p class="archive-article-author"> Author: <%= post.author %></p>
+	    </div>
+	    <div class="article-tags-box">
+	      <%- list_tags(post.tags, {
+	    		show_count: false,
+	    		class: 'article-tag'
+	  	  }) %>
+	    </div>
+   	  </div>
+
+      <div class="article-entry" itemprop="articleBody">
+	    <p class="article-excerpt-content">
+	      <%- truncate(strip_html(post.content), {length: 250, omission: '...'}) %>
+	    </p>
+	  </div>
+
     </header>
   </div>
 </article>

@@ -5,8 +5,11 @@ date: 2018-12-24 21:03:59
 tags: 
     - Machine Learning
     - Tech
-mathjax: true
 ---
+
+本文探讨BP算法。
+
+<!--more-->
 
 # Feed forward neural network and back propagation
 

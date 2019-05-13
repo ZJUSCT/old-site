@@ -6,7 +6,6 @@ tags:
     - Tech
     - Tensorflow
 ---
-# Distributed Tensorflow
 
 ## 1.单机
 

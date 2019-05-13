@@ -8,13 +8,15 @@ tags:
     - Profile
 ---
 
-# 1. Brief Introduction
+## 1. Brief Introduction
 
 在并行计算领域，很难通过纯理论的分析来确定程序的性能，`GPGPU`这种基于特定计算架构的计算任务更甚。事实上，很多制约并行算法性能的瓶颈很可能不在算法本身（比如资源调度障碍）。因此，对给定程序进行充分的性能测试与后续分析是相当必要的调优方法。
 
 `Nvidia`提供了`nvprof`，`nvvp`，`Nsight`三种cuda可用的性能分析工具，本文将简述配合使用`nvprof`与`nvvp`的cuda程序性能分析方法。
 
-# 2. Check Out Device Properties
+<!--more-->
+
+## 2. Check Out Device Properties
 
 由于cuda程序的线程/块分配方案与程序运行的的硬件高度相关，故对目标平台的硬件参数有一定程度的了解是相当有必要的。我们可以使用`cudaGetDeviceProperties()`函数获取设备的各项属性，下述代码可以结合`cuda_runtime_api.h#1218`处`struct cudaDeviceProp`的定义和各属性的相应注解自行理解。
 
@@ -29,20 +31,20 @@ for ( auto i = 0; i != nDevices; ++i )
 }
 ```
 
-# 3. Profile Using Nvprof
+## 3. Profile Using Nvprof
 
-## 3.1. Quick Start
+### 3.1. Quick Start
 
 ```bash
 nvprof --help
 ```
 
-## 3.2. Metrics
+### 3.2. Metrics
 
 * 使用`--query-metrics`列出所有可测试的性能指标。
 * 使用`--metrics sm_efficiency,warp_execution_efficiency,...`指定要测试的性能指标。
 
-## 3.3. PC Sampling
+### 3.3. PC Sampling
 
 在CC5.2或更高的设备上支持使用PC采样(PC sampling)技术。
 
@@ -55,7 +57,7 @@ PC采样技术通过`Round-Robin`方法对SM中所有活动线程束的PC状态�
 
 CC6.0以上的设备对PC采样方法进行了改进，通过检查线程束调度器是否执行指令来确定指令流水线是否真正处于`stall`状态，从而能正确指示指令`stall`的原因。
 
-# 4. Data Visualize Using Nvvp
+## 4. Data Visualize Using Nvvp
 
 `nvvp`可以导入`nvprof`的分析结果，可视化显示统计图表，并且建议性地指出程序可能存在的瓶颈。
 
@@ -71,7 +73,7 @@ CC6.0以上的设备对PC采样方法进行了改进，通过检查线程束调�
 
 <img src="d.jpg" />
 
-## 4.1. Usage
+### 4.1. Usage
 
 ```bash
 nvprof -f --kernels "kernelName" --analysis-metrics -o a.nvvp <task> <args>
@@ -80,9 +82,9 @@ nvvp a.nvvp
 
 这里我使用的方法是在集群上用`nvprof`做性能测试，之后将分析结果`*.nvvp`传回本地用`nvvp`做可视化。
 
-# Ext. Remarks
+## Ext. Remarks
 
-## Tradeoff Between Registers and Threads
+### Tradeoff Between Registers and Threads
 
 在实际Profiling中重新认识了这个问题。
 
@@ -105,11 +107,11 @@ MyKernel(...)
 
 在我的`path tracer`中对上述方法进行测试，将每线程的寄存器数减半为32，SM线程数加倍并满载，GPU利用率由30+提升到70+，执行速度有1.5倍左右的提升。
 
-## Tradeoff Between BlockDim and BlockPerSM
+### Tradeoff Between BlockDim and BlockPerSM
 
 当一个块（block）中的所有线程束（warp）全部完成时，这个块才可以被SM调度。如果块的大小过大，则块的运行速度受单个线程束约束的开销就越大（如果算法并行度很高，增大块的大小不失为一个好选择）；如果块的大小过小，则一方面SM可能无法达到其最大利用率（受`maxBlocksPerSM`的限制），另一方面SM调度块的额外开销也会增大。尤其是针对不同特点的计算任务有不同的更优选择，如`divergency`较高的任务更适合较小的BlockDim。所以在选择BlockDim时不仅要在算法的适应性上做考虑，还要通过多次性能测试来进行针对性的优化。
 
-## Beware of Ladder Effects
+### Beware of Ladder Effects
 
 注意计算资源分配时要注意分配的资源量要能够被组别整除，否则会出现断层状的资源浪费现象。
 

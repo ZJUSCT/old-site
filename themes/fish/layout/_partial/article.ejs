@@ -12,6 +12,9 @@
             <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
             <%- partial('post/category') %>
             <%- partial('post/author',{class_name: 'article-author'}) %>
+            <div class="article-article-tags-box">
+              <%- list_tags(post.tags, {show_count: false, class: 'article-tag'}) %>
+            </div>
         </div>
         <div class="article-entry" itemprop="articleBody">
             <% if (theme.post_excerpt && index){ %>

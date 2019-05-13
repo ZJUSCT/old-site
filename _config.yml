@@ -2,43 +2,44 @@
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
-# Site
-title: 浙江大学超算队
-subtitle: Zhejiang University Supercomputer Team
-description: Official Blog Of ZJUSCT
+# Site 站点配置
+title: 浙江大学超算队 #网站标题
+subtitle: Zhejiang University Supercomputer Team #网站副标题
+description: Infinit Cores & Possibility. #网站描述
 keywords:
-author: ZJUSCT
+author: ZJU · SCT #你的名字
 language:
-timezone:
+timezone: Asia/Shanghai #网站时区
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://clusters.zju.edu.cn/
-root: /
-permalink: :year/:month/:day/:title/
-permalink_defaults:
+url: https://zjusct.github.io/ #网址，搜索时会在搜索引擎中显示
+root: / #网站根目录
+permalink: :year/:month/:day/:title/ #永久链接格式
+permalink_defaults: #永久链接中各部分的默认值
 
-# Directory
-source_dir: source
-public_dir: public
-tag_dir: tags
-archive_dir: archives
-category_dir: categories
-code_dir: downloads/code
-i18n_dir: :lang
-skip_render:
+# Directory 目录配置
+source_dir: source #资源文件夹，这个文件夹用来存放内容
+public_dir: public #公共文件夹，这个文件夹用于存放生成的站点文件
+tag_dir: tags #标签文件夹
+archive_dir: archives #归档文件夹
+category_dir: categories #分类文件夹
+code_dir: downloads/code #Include code 文件夹
+i18n_dir: :lang #国际化文件夹
+skip_render: #跳过指定文件的渲染，您可使用 glob 来配置路径
 
-# Writing
-new_post_name: :title.md # File name of new posts
-default_layout: post
+# Writing 写作配置
+new_post_name: :title.md # 新文章的文件名称
+default_layout: post #默认布局
 titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
-filename_case: 0
-render_drafts: false
-post_asset_folder: true
-relative_link: false
+filename_case: 0 #把文件名称转换为 (1) 小写或 (2) 大写
+render_drafts: false #显示草稿
+post_asset_folder: true #是否启动资源文件夹
+relative_link: true #把链接改为与根目录的相对位址
 future: true
-highlight:
+
+highlight: #代码块的设置
   enable: true
   line_number: true
   auto_detect: false
@@ -53,35 +54,35 @@ index_generator:
   per_page: 4
   order_by: -date
 
-# Category & Tag
-default_category: uncategorized
-category_map:
-tag_map:
+# Category & Tag 分类 & 标签
+default_category: uncategorized #默认分类
+category_map: #分类别名
+tag_map: #标签别名
 
-# Date / Time format
+# Date / Time format 时间和日期
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 
-# Pagination
+# Pagination 分页
 ## Set per_page to 0 to disable pagination
-per_page: 4
-pagination_dir: page
+per_page: 10 #每页显示的文章量 (0 = 关闭分页功能)
+pagination_dir: page #分页目录
 
-# Extensions
+# Extensions 扩展
 ## Plugins: https://hexo.io/plugins/
 Plugins:
 - hexo-generator-json-content
 - hexo-deployer-git
 ## Themes: https://hexo.io/themes/
-theme: fish
+theme: fish #当前主题名称
 
-# Deployment
+# Deployment #部署到github
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
   repo: https://github.com/ZJUSCT/ZJUSCT.github.io
   branch: master
-  message: 
+  message:
