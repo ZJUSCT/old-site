@@ -86,3 +86,12 @@ deploy:
   repo: https://github.com/ZJUSCT/ZJUSCT.github.io
   branch: master
   message:
+
+# RSS plugin
+plugin:
+- hexo-generator-feed
+#Feed Atom
+feed:
+type: atom
+path: atom.xml
+limit: 20
