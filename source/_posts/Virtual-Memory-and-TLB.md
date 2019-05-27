@@ -3,7 +3,7 @@ title: Virtual Memory and TLB
 date: 2019-03-31 14:05:11
 tags:
   - Tech
-  - Operating Susyem
+  - Operating System
 author: 王克
 ---
 
