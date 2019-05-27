@@ -95,3 +95,9 @@ feed:
 type: atom
 path: atom.xml
 limit: 20
+
+# 加密插件
+encrypt:
+  enable: true
+  default_abstract: 这是一篇加密文章，仅供超算队内部阅读。
+  default_message: 输入密码以查看文章

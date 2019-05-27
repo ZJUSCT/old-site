@@ -9,6 +9,7 @@
     "braces": "^3.0.2",
     "eslint": "^5.16.0",
     "hexo": "^3.8.0",
+    "hexo-blog-encrypt": "^2.1.1",
     "hexo-deployer-git": "^1.0.0",
     "hexo-generator-archive": "^0.1.5",
     "hexo-generator-baidu-sitemap": "^0.1.6",

@@ -5,6 +5,7 @@ tags:
   - ZJUSCT
 date: 2019-05-27 11:24:31
 author: 王克
+password: zjusct2019
 ---
 
 ## 2018-2019学年总结
