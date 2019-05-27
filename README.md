@@ -18,6 +18,8 @@ So, the probable way to contribute to the `source` site is:
 2. Edit & Preview & Commit on your own fork.
 3. On finishing, make a **New Pull Request** return to this branch. And wait Administrator to check and publish.
 
+Confused on fork & PullRequest? Read [this](https://www.cnblogs.com/patchouli/p/6511251.html).
+
 ### On Clone your fork to local
 
 + After `git clone` you can run `npm install` to install necessary dependencies
