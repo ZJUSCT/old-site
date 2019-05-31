@@ -83,7 +83,7 @@ theme: fish #当前主题名称
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Unispac/ZJUSCT.github.io.git
+  repo: git@github.com:ZJUSCT/ZJUSCT.github.io.git
   branch: master
   message:
 
