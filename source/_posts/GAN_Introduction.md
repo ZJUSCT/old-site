@@ -6,8 +6,6 @@ tags:
     - AI
 ---
 
-[TOC]
-
 
 
 Reference :  [Machine Learning and having it deep and structured (2018,Spring)](http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS18.html) （李宏毅）
@@ -28,7 +26,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 
 
-## 1. Review for ML
+## Review for ML
 
 在之前的文章（ [机器学习](http://zjuqxy.xyz/?p=1081) / [卷积神经网络](http://122.152.198.128/?p=1532>)）中，我们介绍了一些机器学习（Machine Learning）的思想和例子。
 
@@ -48,7 +46,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 
 
-## 2. What Is Generation
+## What Is Generation
 
 机器学习中，有很多种类型的任务，比如最简单的回归（Regression），分类（Classification）等。
 
@@ -68,7 +66,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 
 
-## 3. Why Generation
+## Why Generation
 
 一个很自然的问题是：为什么我们需要生成？给我一个向量，我生成一张图片有什么用？
 
@@ -96,9 +94,9 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 
 
-## 4. Auto-encoder
+## Auto-encoder
 
-### 4.1 Basic Idea
+### Basic Idea
 
 ![Generator](7.png)
 
@@ -124,7 +122,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 <Font color=red>PS : </Font>这个code的长度是一个超参数，我们需要设定一个适合的编码长度。一方面，它的长度小于原图才能达到我们希望的提取特征的效果。另一方面，如果它的长度太小，可能无法容纳图片中必须的一些关键信息，导致无法还原。
 
-### 4.2 Pros and Cons
+### Pros and Cons
 
 自动编码器的优点很显然，只需要给模型展示一些正例，它就能学到编码与图片之间的映射，非常易于训练和生成。
 
@@ -136,9 +134,9 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 
 
-## 5. Discriminator
+## Discriminator
 
-### 5.1 Basic Idea
+### Basic Idea
 
 ![评估器](11.png)
 
@@ -148,7 +146,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 ![枚举筛选](12.png)
 
-### 5.2 Train
+### Train
 
 一个实际的问题是，如何训练一个好的评估器？它怎么能分辨出哪些是画得好的，哪些是画得糟糕的？
 
@@ -172,7 +170,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 这就像是制定一部法律。我们希望人们的行为被约束在一个我们预先定义的可接受的范围内。但是法律有漏洞，总有人钻空子，在制定者期望之外的区域获得很高的收益。法律制定者就会锁定这些突出的领域专门指定新的条令来打击。经过不断的实践和修订，这部法律也就完善起来。
 
-### 5.3 Pros and Cons
+### Pros and Cons
 
 估值器的优点正好弥补了自动编码器的缺点。自动编码器是一个Button Up的模型，它根据编码对每一个像素点单独生成，组成一个完整的更高层的结果，这样的Button Up模型很难学到不同组成部分之间的关联。而估值器是一个Top Down模型，它直接获得正常图片作为输入，用全连接网络或者卷积网络很容易学习图片中的一些局部以及全局特征。
 
@@ -182,7 +180,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 
 
-## 6. GAN
+## GAN
 
 讨论了这么多，终于轮到主人公GAN登场了。
 
@@ -190,7 +188,7 @@ Reference :  [Machine Learning and having it deep and structured (2018,Spring)](
 
 GAN集成了这两个方法：一方面，GAN使用一个类似Auto-encoder结构的Generator来生成图像，另一方面它用一个Discriminator来评估生成图片的质量。
 
-### 6.1 Basic Idea
+### Basic Idea
 
 考虑这样的一个过程：
 
@@ -210,7 +208,7 @@ GAN集成了这两个方法：一方面，GAN使用一个类似Auto-encoder结�
 
 上图很好的从生物进化的角度很好的揭示了GAN的哲学。一开始蝴蝶颜色五颜六色的，停在树上的时候，捕食它的鸟根据颜色是否是棕色来区分它和叶子。在这个过程中，那些五颜六色的蝴蝶被淘汰了，棕色的蝴蝶脱颖而出，成功骗过了初代鸟。但是那些被骗过的初代鸟也会被淘汰，于是鸟也在这个过程中进化，学会了通过判别是否有叶脉来寻找猎物。而蝴蝶在这一过程中再次进化，成为了枯叶蝶。。。这是自然界中经典的良性竞争，互相强化的例子。而Generative Adversarial Network中的“Adversarial”也就是这样来的。在GAN中，我们让一个generator和一个discriminator互相对抗，generator努力的生成逼真的图片试图骗过discriminator，discriminator努力强化自己的辨别能力对抗generator的欺骗。模型的学习就是在两者的对抗之中互相强化而完成的。
 
-### 6.2 Algorithm
+### Algorithm
 
 ![GAN](20.png)
 
@@ -230,7 +228,7 @@ GAN集成了这两个方法：一方面，GAN使用一个类似Auto-encoder结�
 
 同样的，我们希望最大化这个V值，使得产生的结果尽可能骗过Discriminator。将V值对 $\theta_g $ 求偏导，使用梯度上升来最大化这个V，从而实现对Generator的调优。
 
-### 6.3 Comparision
+### Comparision
 
 在GAN的设计中，我们可以看到其明显优于Auto-encoder和Discriminator的地方。Auto-encoder生成之后，缺乏一个强大评估反馈，简单的采用原图和恢复生成图的差向量范数来评估，无法考虑到各个component之间的correlation，缺乏一个大局观。Discriminator虽然能对图片产生很深的特征理解，但是缺少一个高效准确的proposal手段，训练时它非常依赖于反例的生成，生成时又需要选择一个候选区域来执行argmax，这都不是容易解决的问题。
 
