@@ -1,5 +1,5 @@
 ---
-title: 生成式对抗网络
+title: 生成式对抗网络_基础
 date: 2019-05-31 
 author: 漆翔宇
 tags: 
