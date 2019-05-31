@@ -200,12 +200,11 @@
 
       <div class="article-entry" itemprop="articleBody">
 	    <p class="article-excerpt-content">
-	      [TOC]
-Reference :  Machine Learning and having it deep and structured (2018,Spring) （李宏毅）
+	      Reference :  Machine Learning and having it deep and structured (2018,Spring) （李宏毅）
 Introduction of GAN生成式对抗网络（Generative Adversarial Network，GAN），是2014年被提出来的一种生成式深度学习网络技术。
 由于在众多应用场合中的出色表现，近年来GAN的应用和研究已经成为一个非常热门的方向。
 
-这篇文章将会对GAN做一个直观的介绍，帮助读者理...
+这篇文章将会对GAN做一个直观的介绍，帮助读者理解GAN的B...
 	    </p>
 	  </div>
 
@@ -411,7 +410,23 @@ Introduction of GAN生成式对抗网络（Generative Adversarial Network，GAN�
 </div>
 
   <a id="rocket" href="#top" class=""></a>
-  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -429,6 +444,5 @@ Introduction of GAN生成式对抗网络（Generative Adversarial Network，GAN�
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-  
 </body>
 </html>

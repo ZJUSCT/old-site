@@ -211,7 +211,7 @@
 Incorrect Password!
 No content to display!
 
-U2FsdGVkX19mXSV1YXbNED2+Ef2Pdje8PQwaPzVYF3g8HyryO7IPffoCNyd+xtCWxAn+1oZ0LX2KVVBBqhZKVOyAuawzt4388z2nWlQT3SFgPJ8gBv8x4e8qu+MLEG0swJ94t5Cpoj8EbWp8Glm/8UNxg0gUM4j1bGHNYeb3rJ3W...
+U2FsdGVkX19wxxz3y4z0UDdo1MWstutEAo+KAgUjD2DjtHyW4pppQKzJZlGIEEQcHPxZytNiUBstKV8Vu0OyPQKe3NAiKAYcNaKRx88kbpFE/pz0nANEnv0N1xS2viuZ/CZrPNFNJsKyHaRVGMvdwoz7d/SQb0hu6iXpE4mIvxY6...
 	    </p>
 	  </div>
 
@@ -375,7 +375,23 @@ U2FsdGVkX19mXSV1YXbNED2+Ef2Pdje8PQwaPzVYF3g8HyryO7IPffoCNyd+xtCWxAn+1oZ0LX2KVVBB
 </div>
 
   <a id="rocket" href="#top" class=""></a>
-  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -393,6 +409,5 @@ U2FsdGVkX19mXSV1YXbNED2+Ef2Pdje8PQwaPzVYF3g8HyryO7IPffoCNyd+xtCWxAn+1oZ0LX2KVVBB
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-  
 </body>
 </html>
