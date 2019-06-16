@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Unispac/blogImageBed/master/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/GAN/Animation%20Avatar%20Generation/img/27.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Unispac/blogImageBed/master/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/GAN/Animation%20Avatar%20Generation/img/28.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Unispac/blogImageBed/master/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/GAN/Animation%20Avatar%20Generation/img/29.png">
-<meta property="og:updated_time" content="2019-06-16T14:37:58.947Z">
+<meta property="og:updated_time" content="2019-06-16T14:42:47.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于GAN的动漫头像生成">
 <meta name="twitter:description" content="基于GAN的动漫头像生成Github Repo ：https://github.com/Unispac/Animation-Avatar-Generation 项目来源本项目实践了基于GAN的动漫头像生成。 想法来源于一个名为 MakeGirlsMoe 的动漫人物生成项目：  该项目是由一组来自复旦大学和CMU的学生设计的，曾经一度在github trend上跻身Top 5，并且登上过日本雅虎的首">
@@ -238,7 +238,7 @@
 <p>数据集来自台湾大学李宏毅老师开设的课程：MLDS。</p>
 <p>在实验中，我们验证和研究了GAN在理论上存在的一些问题以及潜在的解决方法。我们使用原论文中提供的算法生成图像时也遇到了很多问题，通过一些分析，我们提出了一些改进手段，最后在一定程度优化了生成结果，实现了可接受的生成效果：</p>
 <p><img src="https://raw.githubusercontent.com/Unispac/blogImageBed/master/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/GAN/Animation%20Avatar%20Generation/img/4.png" alt="DEMO"></p>
-<p>这篇实验报告中，我们将会简单的介绍我们的实验内容和遇到的问题，给出一些分析和解决方法。最终我们将分析实验结果及其潜在的优化空间。</p>
+<p>我们将会简单的介绍我们的实验内容和遇到的问题，给出一些分析和解决方法。最终我们将分析实验结果及其潜在的优化空间。</p>
 <h2 id="GAN及其固有的问题"><a href="#GAN及其固有的问题" class="headerlink" title="GAN及其固有的问题"></a>GAN及其固有的问题</h2><p>生成式对抗网络是2014年由Goodfellow等人在《Generative Adversarial Net》中提出的。</p>
 <p>在GAN中一组Generator和Discriminator通过对下面这个式子进行minimax博弈，实现生成准确度的自强化学习：</p>
 <p><img src="https://raw.githubusercontent.com/Unispac/blogImageBed/master/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/GAN/Animation%20Avatar%20Generation/img/5.png" alt="minimax Loss"></p>
