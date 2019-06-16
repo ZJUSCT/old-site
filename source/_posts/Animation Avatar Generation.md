@@ -48,7 +48,7 @@ Github Repo ：https://github.com/Unispac/Animation-Avatar-Generation
 
 ![DEMO](https://raw.githubusercontent.com/Unispac/blogImageBed/master/人工智能/GAN/Animation%20Avatar%20Generation/img/4.png)
 
-这篇实验报告中，我们将会简单的介绍我们的实验内容和遇到的问题，给出一些分析和解决方法。最终我们将分析实验结果及其潜在的优化空间。
+我们将会简单的介绍我们的实验内容和遇到的问题，给出一些分析和解决方法。最终我们将分析实验结果及其潜在的优化空间。
 
 
 
